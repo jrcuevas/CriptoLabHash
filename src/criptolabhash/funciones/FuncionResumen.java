@@ -22,7 +22,7 @@ import java.security.MessageDigestSpi;
  * Esta clase abstracta, extiende las características de MessageDigestSpi, para
  * que las clases que heredan incluyan el seguimiento.
  *
- * @author José Ramón Cuevas  <www.linkedin.com/in/joseramoncuevasdiez>
+ * @author José Ramón Cuevas  https://www.linkedin.com/in/joseramoncuevasdiez
  */
 public abstract class FuncionResumen extends MessageDigestSpi {
 

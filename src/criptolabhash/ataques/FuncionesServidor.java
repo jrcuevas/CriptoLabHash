@@ -19,22 +19,22 @@ package criptolabhash.ataques;
 /**
  * Funciones que debe tener el servidor
  *
- * @author José Ramón Cuevas  <www.linkedin.com/in/joseramoncuevasdiez>
+ * @author José Ramón Cuevas  https://www.linkedin.com/in/joseramoncuevasdiez
  */
 public interface FuncionesServidor {
 
     /**
      * Registro del cliente en el servidor.
      *
-     * @throws NullPointerException
+     * @throws NullPointerException En caso de algún problema de comunicación.
      */
     public void registro() throws NullPointerException;
 
     /**
      * Añadir hash al mapa del servidor.
      *
-     * @param hash
-     * @throws NullPointerException
+     * @param hash Hash generado a partir de un mensaje pseudoaleatorio.
+     * @throws NullPointerException En caso de algún problema de comunicación.
      */
     public void putHash(Byte[] hash) throws NullPointerException;
 

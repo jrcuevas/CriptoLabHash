@@ -19,7 +19,7 @@ package criptolabhash.ataques;
 /**
  * Excepción lanzada cuando el cliente no tiene configuraciones seteadas.
  *
- * @author José Ramón Cuevas  <www.linkedin.com/in/joseramoncuevasdiez>
+ * @author José Ramón Cuevas  https://www.linkedin.com/in/joseramoncuevasdiez
  */
 public class NoSetException extends Exception {
 

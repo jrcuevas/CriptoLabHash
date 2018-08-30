@@ -20,7 +20,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author José Ramón Cuevas  <www.linkedin.com/in/joseramoncuevasdiez>
+ * @author José Ramón Cuevas  https://www.linkedin.com/in/joseramoncuevasdiez
  */
 public enum Mensaje implements Serializable {
 
@@ -53,7 +53,7 @@ public enum Mensaje implements Serializable {
     /**
      * Indica un nombre de algoritmo.
      *
-     * @param algoritmo
+     * @param algoritmo Nombre del algoritmo.
      */
     public void setAlgoritmo(String algoritmo) {
         this.algoritmo = algoritmo;
@@ -62,7 +62,7 @@ public enum Mensaje implements Serializable {
     /**
      * Indica el valor de la semilla.
      *
-     * @param semilla
+     * @param semilla Semilla que se utilizará.
      */
     public void setSemilla(long semilla) {
         this.semilla = semilla;
@@ -71,7 +71,7 @@ public enum Mensaje implements Serializable {
     /**
      * Carga el contenido del mensaje en bytes.
      *
-     * @param mensaje
+     * @param mensaje Mensaje o Hash.
      */
     public void setMensaje(Byte[] mensaje) {
         this.mensaje = mensaje;
@@ -80,7 +80,7 @@ public enum Mensaje implements Serializable {
     /**
      * Devuelve el valor del algorimo si ha sido cargado.
      *
-     * @return
+     * @return Nombre del algoritmo.
      */
     public String getAlgoritmo() {
         return this.algoritmo;
@@ -89,7 +89,7 @@ public enum Mensaje implements Serializable {
     /**
      * Devuelve el valor de la semilla si ha sido cargada.
      *
-     * @return
+     * @return Semilla a utilizar.
      */
     public Long getSemilla() {
         return this.semilla;
@@ -98,7 +98,7 @@ public enum Mensaje implements Serializable {
     /**
      * Devuelve el valor del mensaje si ha sido cargado.
      *
-     * @return
+     * @return Mensaje o Hash.
      */
     public Byte[] getMensaje() {
         return this.mensaje;

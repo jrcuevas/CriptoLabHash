@@ -19,7 +19,7 @@ package criptolabhash.ataques;
 /**
  * Funciones que debe disponer el cliente
  *
- * @author José Ramón Cuevas  <www.linkedin.com/in/joseramoncuevasdiez>
+ * @author José Ramón Cuevas  https://www.linkedin.com/in/joseramoncuevasdiez
  */
 public interface FuncionesCliente {
 
@@ -27,16 +27,16 @@ public interface FuncionesCliente {
      * Setea la función a utilizar y establece una semilla para la exploración.
      * Primero para la ejecución actual luego efectua
      *
-     * @param algoritmo
-     * @param semilla
-     * @throws NullPointerException
+     * @param algoritmo Nombre del algoritmo a utilizar.
+     * @param semilla Semilla con la que se generarán los mensajes pseudoaleatorios.
+     * @throws NullPointerException En caso de algún problema de comunicación.
      */
     public void setFuncion(String algoritmo, long semilla) throws NullPointerException;
 
     /**
      * Comienza o reanuda la ejecución con los valores seteados.
      *
-     * @throws NullPointerException
+     * @throws NullPointerException En caso de algún problema de comunicación.
      * @throws NoSetException No se ha configurado el algoritmo a usar.
      */
     public void start() throws NullPointerException, NoSetException;
@@ -44,23 +44,23 @@ public interface FuncionesCliente {
     /**
      * Para la ejecución actual.
      *
-     * @throws NullPointerException
+     * @throws NullPointerException En caso de algún problema de comunicación.
      */
     public void stop() throws NullPointerException;
 
     /**
      * Para la ejecución actual y elimina el mapa de los códigos explorados
      *
-     * @throws NullPointerException
+     * @throws NullPointerException En caso de algún problema de comunicación.
      */
     public void reset() throws NullPointerException;
 
     /**
      * Consigue el mensaje que generó el hash facilitado.
      *
-     * @param hash
+     * @param hash Hash que ha sido generado anteriormente.
      * @return Mensaje solicitado.
-     * @throws NullPointerException
+     * @throws NullPointerException En caso de algún problema de comunicación.
      */
     public Byte[] getMessage(Byte[] hash) throws NullPointerException;
 
