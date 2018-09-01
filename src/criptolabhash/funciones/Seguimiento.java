@@ -16,7 +16,6 @@
  */
 package criptolabhash.funciones;
 
-import java.security.MessageDigestSpi;
 
 /**
  * Esta clase abstracta, extiende las características de MessageDigestSpi, para
@@ -24,23 +23,14 @@ import java.security.MessageDigestSpi;
  *
  * @author José Ramón Cuevas  https://www.linkedin.com/in/joseramoncuevasdiez
  */
-public abstract class FuncionResumen extends MessageDigestSpi {
+public interface Seguimiento {
 
     /**
-     * Retorna el seguimiento por bloques de la función hash. Si la función no
+     * Retorna el seguimiento de la función hash. Si la función no
      * ha terminado, con esta llamada se procesan los datos actuales y se
      * calculará el hash. Ya no se admitirán mas datos.
      *
      * @return Texto con la explicación de los pasos por bloque realizados.
      */
-    public abstract String getSeguimientoporBloque();
-
-    /**
-     * Retorna el seguimiento paso a paso de la función hash. Si la función no
-     * ha terminado, con esta llamada se procesan los datos actuales y se
-     * calculará el hash. Ya no se admitirán mas datos.
-     *
-     * @return Texto con la explicación de los pasos realizados.
-     */
-    public abstract String getSeguimientopasoaPaso();
+    public String getSeguimiento();
 }
