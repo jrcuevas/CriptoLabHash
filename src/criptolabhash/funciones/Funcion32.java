@@ -61,11 +61,16 @@ public abstract class Funcion32 extends MessageDigestSpi {
      * Almacena el vector D.
      */
     protected int D;
-    
+
     /**
-     * Indica si ha terminado.
+     * Almacena el vector E.
      */
-    protected boolean finished;
+    protected int E;
+
+    /**
+     * Resumen procesado, si null no ha terminado.
+     */    
+    protected byte[] resumen;
 
     /**
      * Rotación a la izquierda del número de bits indicado.
@@ -84,7 +89,7 @@ public abstract class Funcion32 extends MessageDigestSpi {
      * @param palabra Palabra de 32 bit de entrada.
      * @param desplazamiento Número de bits que será rotado.
      * @return El resultado de la operación.
-     */    
+     */
     protected int RR(int palabra, byte desplazamiento) {
         return (palabra >>> desplazamiento) | (palabra << (32 - desplazamiento));
     }
@@ -121,7 +126,28 @@ public abstract class Funcion32 extends MessageDigestSpi {
      * primeros, seguidamente añade la longitud. Si los 56 bytes primeros ya
      * estuvieran ocupados, se rellena un bloque mas.
      */
-    protected void addRelleno() {
+    protected void addRellenoBig() {
+        int pos = addByteBig((byte) 0b10000000);
+        while (pos != 56) {
+            pos = addByteBig((byte) 0b00000000);
+        }
+        long tamano = size;
+        byte[] tamb = new byte[8];
+        for (byte ind = 7; ind >= 0; ind--){
+            tamb[ind] = (byte)(tamano & 0xff);
+            tamano >>>= 8;
+        }
+        for (byte Byte: tamb){
+            addByteBig(Byte);
+        }
+    }
+
+    /**
+     * Añade un bit de relleno a "1" y el resto a "0" hasta llenar los 56 bytes
+     * primeros, seguidamente añade la longitud. Si los 56 bytes primeros ya
+     * estuvieran ocupados, se rellena un bloque mas.
+     */
+    protected void addRellenoLittle() {
         int pos = addByteLittle((byte) 0b10000000);
         while (pos != 56) {
             pos = addByteLittle((byte) 0b00000000);
@@ -131,7 +157,6 @@ public abstract class Funcion32 extends MessageDigestSpi {
             addByteLittle((byte) (tamano & 0xff));
             tamano >>>= 8;
         }
-        this.finished = true;
     }
 
     /**
@@ -173,16 +198,71 @@ public abstract class Funcion32 extends MessageDigestSpi {
     }
 
     /**
+     * Añade un nuevo byte al bloque en formato big endian y en palabras de 32
+     * bits. Incrementa el puntero de bytes y cuando se llena el bloque vuelve a
+     * 0 y procesa el bloque.
+     *
+     * @param mensaje Byte de información del mensaje.
+     * @return El lugar del puntero. Si es 0 induca que el bloque esta lleno.
+     */
+    protected int addByteBig(byte mensaje) {
+        byte pos = (byte) (index & 0b00000011);
+        byte ind = (byte) (index >>> 2);
+        int dato = mensaje & 0xff;
+        switch (pos) {
+            case 0:
+                bloque[ind] |= dato << 24;
+                break;
+            case 1:
+                bloque[ind] |= dato << 16;
+                break;
+            case 2:
+                bloque[ind] |= dato << 8;
+                break;
+            case 3:
+                bloque[ind] |= dato;
+                break;
+        }
+        index++;
+        if (index > 63) {
+            index = 0;
+            procesaBloque();
+            // Resetea bloque.
+            for (int index = 0; index < bloque.length; index++) {
+                bloque[index] = 0;
+            }
+        }
+        return index;
+    }
+
+    /**
      * Convierte un int en un array de bytes.
      *
      * @param word palabra a convertir.
      * @return Un array de bytes con el contenido del int.
      */
-    protected byte[] toBytes(int word) {
+    protected byte[] intToBytes(int word) {
         byte[] bytes = new byte[4];
         for (byte ind = 3; ind >= 0; ind--) {
             bytes[ind] = (byte) (word & 0xff);
             word >>>= 8;
+        }
+        return bytes;
+    }
+
+    /**
+     * Convierte un array de int en un array de bytes.
+     *
+     * @param words Array que contiene los ints a convertir.
+     * @return Un array de bytes con el contenido del int[].
+     */
+    protected byte[] intToBytes(int[] words) {
+        byte[] bytes = new byte[words.length * 4];
+        for (int ind = 0; ind < words.length; ind++) {
+            byte[] hex = intToBytes(words[ind]);
+            for (int ind1 = 0; ind1 < hex.length; ind1++) {
+                bytes[ind * hex.length + ind1] = hex[ind1];
+            }
         }
         return bytes;
     }
@@ -194,7 +274,7 @@ public abstract class Funcion32 extends MessageDigestSpi {
 
     /**
      * Retorna una linea con una representación hexadecimal de los cuatro
-     * valores.
+     * valores separados por un espacio.
      *
      * @param valores Valores a imprimir en hexadecimal.
      * @return Una linea con los cuatro valores.
@@ -202,7 +282,23 @@ public abstract class Funcion32 extends MessageDigestSpi {
     protected String bufferesToStringH(int[] valores) {
         String salida = "";
         for (int valor : valores) {
-            salida += DatatypeConverter.printHexBinary(toBytes(valor)) + " ";
+            salida += intToHexString(valor) + " ";
+        }
+        salida += "\n";
+        return salida;
+    }
+    
+     /**
+     * Retorna una linea con una representación hexadecimal de los cuatro
+     * valores.
+     *
+     * @param valores Valores a imprimir en hexadecimal.
+     * @return Una linea con los valores concatenados.
+     */
+    protected String resumenToString(int[] valores) {
+        String salida = "";
+        for (int valor : valores) {
+            salida += intToHexString(valor);
         }
         salida += "\n";
         return salida;
@@ -220,7 +316,7 @@ public abstract class Funcion32 extends MessageDigestSpi {
         for (int index = 0; index < valores.length; index++) {
             salida += indicadores[index] + " = "
                     + intToBinaryString(valores[index]) + " "
-                    + DatatypeConverter.printHexBinary(toBytes(valores[index])) + "\n";
+                    + intToHexString(valores[index]) + "\n";
         }
         return salida;
     }
@@ -235,7 +331,7 @@ public abstract class Funcion32 extends MessageDigestSpi {
         for (int index = 0; index < bloque.length; index++) {
             salida += String.format("Palabra %2d ", index);
             salida += intToBinaryString(bloque[index]) + " ";
-            salida += "= " + DatatypeConverter.printHexBinary(toBytes(bloque[index])) + "\n";
+            salida += "= " + intToHexString(bloque[index]) + "\n";
         }
         salida += "\n";
         return salida;
@@ -258,11 +354,29 @@ public abstract class Funcion32 extends MessageDigestSpi {
     }
 
     /**
+     * Convierte una palabra int en su representación Hexadecimal.
+     *
+     * @param palabra Palabra a representar.
+     * @return Un string conteniendo el valor hexadecimal.
+     */
+    protected String intToHexString(int palabra) {
+        return DatatypeConverter.printHexBinary(intToBytes(palabra));
+    }
+
+    /**
      * Calcula el número de bloque actual.
      *
      * @return Número de bloque.
      */
     protected long nBloque() {
         return size / 512 + ((size % 512 > 0) ? 1 : 0);
+    }
+
+    @Override
+    public void engineUpdate(byte[] input, int offset, int len) {
+        int end = offset + len;
+        for (int index = offset; index < input.length && index < end; index++) {
+            engineUpdate(input[index]);
+        }
     }
 }

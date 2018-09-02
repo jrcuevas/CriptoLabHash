@@ -22,10 +22,10 @@ package criptolabhash.funciones;
  */
 public class MD5 extends Funcion32 implements Seguimiento{
 
-    private static final int Ainicial = 19088743;
-    private static final int Binicial = -1985229329;
-    private static final int Cinicial = -19088744;
-    private static final int Dinicial = 1985229328;
+    private static final int Ainicial = 0x01234567;
+    private static final int Binicial = 0x89abcdef;
+    private static final int Cinicial = 0xfedcba98;
+    private static final int Dinicial = 0x76543210;
     private static final byte S11 = 7;
     private static final byte S12 = 12;
     private static final byte S13 = 17;
@@ -69,7 +69,8 @@ public class MD5 extends Funcion32 implements Seguimiento{
     
     /**
      * Instanciación con seguimiento.
-     * @param pasoapaso 
+     * @param pasoapaso Indica si se quiere obtener seguimiento paso a paso o 
+     * por bloques.
      */
     public MD5(boolean pasoapaso){
         this.opfuncion = new String[2];
@@ -371,16 +372,11 @@ public class MD5 extends Funcion32 implements Seguimiento{
     }
 
     @Override
-    public void engineUpdate(byte[] input, int offset, int len) {
-        int end = offset + len;
-        for (int index = offset; index < input.length && index < end; index++) {
-            engineUpdate(input[index]);
-        }
-    }
-
-    @Override
     public byte[] engineDigest() {
-        this.addRelleno();
+        if (resumen != null){
+            return resumen;
+        }
+        this.addRellenoLittle();
         if (pasoapaso | porbloque) {
             this.track += "======== Valor hash o resumen final del \u00faltimo bloque ========\n";
             this.track += "  Deshaciendo la inversi\u00f3n inicial, es decir, representando\n";
@@ -394,28 +390,13 @@ public class MD5 extends Funcion32 implements Seguimiento{
         B = switchEndian(B);
         C = switchEndian(C);
         D = switchEndian(D);
+        
+        int[] res = new int[]{A, B, C, D};
         if (pasoapaso | porbloque) {
-            this.track += "                " + bufferesToStringH(new int[]{A, B, C, D});
+            this.track += "                " + resumenToString(res);
         }
-        byte[] hash = new byte[16];
-        int index = 0;
-        for (byte dato : toBytes(A)) {
-            hash[index] = dato;
-            index++;
-        }
-        for (byte dato : toBytes(B)) {
-            hash[index] = dato;
-            index++;
-        }
-        for (byte dato : toBytes(C)) {
-            hash[index] = dato;
-            index++;
-        }
-        for (byte dato : toBytes(D)) {
-            hash[index] = dato;
-            index++;
-        }
-        return hash;
+        resumen = intToBytes(res);
+        return resumen;
     }
 
     @Override
@@ -434,13 +415,14 @@ public class MD5 extends Funcion32 implements Seguimiento{
         }
         index = 0;
         size = 0;
-        finished = false;
+        resumen = null;
+        track = "";
     }
 
     @Override
     public String getSeguimiento() {
-        if (!finished){
-            this.addRelleno();
+        if (resumen == null){
+            this.engineDigest();
         }
         return this.track;
     }
