@@ -20,7 +20,7 @@ package criptolabhash.funciones;
  *
  * @author José Ramón Cuevas https://www.linkedin.com/in/joseramoncuevasdiez
  */
-public class MD5 extends Funcion32 implements Seguimiento{
+public class MD5 extends Hash32 implements Seguimiento{
 
     private static final int Ainicial = 0x01234567;
     private static final int Binicial = 0x89abcdef;
@@ -42,29 +42,12 @@ public class MD5 extends Funcion32 implements Seguimiento{
     private static final byte S42 = 10;
     private static final byte S43 = 15;
     private static final byte S44 = 21;
-    /**
-     * Seguimiento del algoritmo.
-     */
-    private String track;
-    /**
-     * Seguimiento paso a paso?.
-     */
-    private boolean pasoapaso;
-    /**
-     * Seguimiento por bloque?.
-     */
-    private boolean porbloque;
-    /**
-     * Operación y resultado de la última función realizada.
-     */
-    private String[] opfuncion;
 
     /**
      * Instanciación sin seguimiento.
      */
     public MD5(){
-        this.opfuncion = new String[2];
-        this.engineReset();
+        super();
     }
     
     /**
@@ -73,13 +56,7 @@ public class MD5 extends Funcion32 implements Seguimiento{
      * por bloques.
      */
     public MD5(boolean pasoapaso){
-        this.opfuncion = new String[2];
-        if(pasoapaso){
-            this.pasoapaso = true;
-        }else{
-            this.porbloque = true;
-        }
-        this.engineReset();
+        super(pasoapaso);
     }
     
     /**
@@ -413,18 +390,6 @@ public class MD5 extends Funcion32 implements Seguimiento{
             this.track += "\n";
             this.track += "Valor inicial: " + this.bufferesToStringH(new int[]{A, B, C, D}) + "\n";
         }
-        index = 0;
-        size = 0;
-        resumen = null;
-        track = "";
-    }
-
-    @Override
-    public String getSeguimiento() {
-        if (resumen == null){
-            this.engineDigest();
-        }
-        return this.track;
-    }
-    
+        super.engineReset();
+    }    
 }

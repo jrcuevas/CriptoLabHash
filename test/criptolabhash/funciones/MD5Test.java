@@ -56,7 +56,7 @@ public class MD5Test {
     public void testEngineDigest() {
         System.out.println("engineDigest");
         byte[] mensaje = "Hola".getBytes();
-        MD5 instance = new MD5();
+        Hash32 instance = new MD5();
         for(byte caracter: mensaje){
             instance.engineUpdate(caracter);
         }
@@ -72,7 +72,7 @@ public class MD5Test {
     public void testEngineDigestPlus() {
         System.out.println("engineDigestPlus");
         byte[] mensaje = "Probando un texto que supere los sesenta y cuatro caracteres escritos".getBytes();
-        MD5 instance = new MD5();
+        Hash32 instance = new MD5();
         for(byte caracter: mensaje){
             instance.engineUpdate(caracter);
         }
@@ -88,7 +88,7 @@ public class MD5Test {
     public void testGetSeguimientoPasoaPaso(){
         System.out.println("getSeguimientoPasoaPaso");
         byte[] mensaje = "Hola".getBytes();
-        MD5 instance = new MD5(true);
+        Hash32 instance = new MD5(true);
         for(byte caracter: mensaje){
             instance.engineUpdate(caracter);
         }
@@ -105,7 +105,7 @@ public class MD5Test {
     public void testGetSeguimientoPorBloque(){
         System.out.println("getSeguimientoPorBloque");
         byte[] mensaje = "Hola".getBytes();
-        MD5 instance = new MD5(false);
+        Hash32 instance = new MD5(false);
         for(byte caracter: mensaje){
             instance.engineUpdate(caracter);
         }

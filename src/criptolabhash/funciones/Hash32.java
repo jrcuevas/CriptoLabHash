@@ -24,7 +24,7 @@ import javax.xml.bind.DatatypeConverter;
  *
  * @author José Ramón Cuevas https://www.linkedin.com/in/joseramoncuevasdiez
  */
-public abstract class Funcion32 extends MessageDigestSpi {
+public abstract class Hash32 extends MessageDigestSpi implements Seguimiento {
 
     /**
      * Bloque de datos a tratar. Contiene 16 palabras de 32 bits.
@@ -69,9 +69,51 @@ public abstract class Funcion32 extends MessageDigestSpi {
 
     /**
      * Resumen procesado, si null no ha terminado.
-     */    
+     */
     protected byte[] resumen;
 
+    /**
+     * Seguimiento del algoritmo.
+     */
+    protected String track;
+
+    /**
+     * Operación y resultado de la última función realizada.
+     */
+    protected String[] opfuncion;
+
+    /**
+     * Seguimiento paso a paso?.
+     */
+    protected boolean pasoapaso;
+
+    /**
+     * Seguimiento por bloque?.
+     */
+    protected boolean porbloque;
+
+    /**
+     * Operaciones obligatorias para instanciación sin seguimiento.
+     */
+    protected Hash32(){
+        this.opfuncion = new String[2];
+        this.engineReset();
+    }
+    
+    /**
+     * Operaciones obligatorias a realizar para instanciación con seguimiento.
+     * @param pasoapaso 
+     */
+    protected Hash32(boolean pasoapaso){
+        this.opfuncion = new String[2];
+        if(pasoapaso){
+            this.pasoapaso = true;
+        }else{
+            this.porbloque = true;
+        }
+        this.engineReset();
+    }
+    
     /**
      * Rotación a la izquierda del número de bits indicado.
      *
@@ -133,11 +175,11 @@ public abstract class Funcion32 extends MessageDigestSpi {
         }
         long tamano = size;
         byte[] tamb = new byte[8];
-        for (byte ind = 7; ind >= 0; ind--){
-            tamb[ind] = (byte)(tamano & 0xff);
+        for (byte ind = 7; ind >= 0; ind--) {
+            tamb[ind] = (byte) (tamano & 0xff);
             tamano >>>= 8;
         }
-        for (byte Byte: tamb){
+        for (byte Byte : tamb) {
             addByteBig(Byte);
         }
     }
@@ -287,8 +329,8 @@ public abstract class Funcion32 extends MessageDigestSpi {
         salida += "\n";
         return salida;
     }
-    
-     /**
+
+    /**
      * Retorna una linea con una representación hexadecimal de los cuatro
      * valores.
      *
@@ -372,11 +414,43 @@ public abstract class Funcion32 extends MessageDigestSpi {
         return size / 512 + ((size % 512 > 0) ? 1 : 0);
     }
 
+    /**
+     * Obtiene el informe de seguimiento
+     *
+     * @return Informe de las operaciones realizadas.
+     */
+    public final String getSeguimiento() {
+        if (resumen == null) {
+            this.engineDigest();
+        }
+        if (track.equals("")) {
+            return "No se ha realizado ningún tipo de seguimiento.";
+        }
+        return this.track;
+    }
+
+    @Override
+    public abstract byte[] engineDigest();
+    
+    @Override
+    public abstract void engineUpdate(byte input);
+    
     @Override
     public void engineUpdate(byte[] input, int offset, int len) {
         int end = offset + len;
         for (int index = offset; index < input.length && index < end; index++) {
             engineUpdate(input[index]);
+        }
+    }
+
+    @Override
+    public void engineReset() {
+        index = 0;
+        size = 0;
+        resumen = null;
+        track = "";
+        for (int index = 0; index < opfuncion.length; index++) {
+            opfuncion[index] = "";
         }
     }
 }

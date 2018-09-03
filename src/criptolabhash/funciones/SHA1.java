@@ -20,7 +20,7 @@ package criptolabhash.funciones;
  *
  * @author José Ramón Cuevas https://www.linkedin.com/in/joseramoncuevasdiez
  */
-public class SHA1 extends Funcion32 implements Seguimiento {
+public class SHA1 extends Hash32 implements Seguimiento {
 
     private static final int Ainicial = 0x67452301;
     private static final int Binicial = 0xefcdab89;
@@ -36,29 +36,12 @@ public class SHA1 extends Funcion32 implements Seguimiento {
      * Bloque de datos a tratar. Contiene 80 palabras de 32 bits.
      */
     protected int[] W = new int[80];
-    /**
-     * Seguimiento del algoritmo.
-     */
-    private String track;
-    /**
-     * Seguimiento paso a paso?.
-     */
-    private boolean pasoapaso;
-    /**
-     * Seguimiento por bloque?.
-     */
-    private boolean porbloque;
-    /**
-     * Operación y resultado de la última función realizada.
-     */
-    private String[] opfuncion;
 
     /**
      * Instanciación sin seguimiento.
      */
     public SHA1() {
-        this.opfuncion = new String[3];
-        this.engineReset();
+        super();
     }
 
     /**
@@ -68,13 +51,7 @@ public class SHA1 extends Funcion32 implements Seguimiento {
      * por bloques.
      */
     public SHA1(boolean pasoapaso) {
-        this.opfuncion = new String[3];
-        if (pasoapaso) {
-            this.pasoapaso = true;
-        } else {
-            this.porbloque = true;
-        }
-        this.engineReset();
+        super(pasoapaso);
     }
 
     /**
@@ -376,23 +353,14 @@ public class SHA1 extends Funcion32 implements Seguimiento {
         return W[pos];
     }
 
-    /**
-     * Pone en blanco todas las lineas de opfuncion.
-     */
-    private void resetOpfuncion() {
-        for (int index = 0; index < opfuncion.length; index++) {
-            opfuncion[index] = "";
-        }
-    }
-
     @Override
-    protected void engineUpdate(byte input) {
+    public void engineUpdate(byte input) {
         addByteBig(input);
         this.size += 8;
     }
 
     @Override
-    protected byte[] engineDigest() {
+    public byte[] engineDigest() {
         if (resumen != null){
             return resumen;
         }
@@ -417,19 +385,6 @@ public class SHA1 extends Funcion32 implements Seguimiento {
         if (pasoapaso || porbloque) {
             this.track += "Valor inicial: " + this.bufferesToStringH(new int[]{A, B, C, D, E}) + "\n";
         }
-        index = 0;
-        size = 0;
-        resumen = null;
-        track = "";
-        resetOpfuncion();
+        super.engineReset();
     }
-
-    @Override
-    public String getSeguimiento() {
-        if (resumen == null) {
-            this.engineDigest();
-        }
-        return this.track;
-    }
-
 }
