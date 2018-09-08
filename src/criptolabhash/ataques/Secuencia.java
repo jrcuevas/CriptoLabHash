@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 José Ramón Cuevas  <www.linkedin.com/in/joseramoncuevasdiez>
+ * Copyright (C) 2018 José Ramón Cuevas  https://www.linkedin.com/in/joseramoncuevasdiez
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,25 +17,22 @@
 package criptolabhash.ataques;
 
 /**
- * Funciones que debe tener el servidor
+ * Mantiene una variable secuencial.
  *
- * @author José Ramón Cuevas  https://www.linkedin.com/in/joseramoncuevasdiez
+ * @author José Ramón Cuevas https://www.linkedin.com/in/joseramoncuevasdiez
  */
-public interface FuncionesServidor {
+public class Secuencia {
 
     /**
-     * Registro del cliente en el servidor.
-     *
-     * @throws NullPointerException En caso de algún problema de comunicación.
+     * Variable secuencial.
      */
-    public void registro() throws NullPointerException;
+    private static long secuencia = 0;
 
     /**
-     * Añadir hash al mapa del servidor.
-     *
-     * @param hash Hash generado a partir de un mensaje pseudoaleatorio.
-     * @throws NullPointerException En caso de algún problema de comunicación.
+     * Incrementa la secuencia en 1 con cada llamada.
+     * @return long
      */
-    public void putHash(Byte[] hash) throws NullPointerException;
-
+    public static synchronized long nextnumber() {
+        return secuencia++;
+    }
 }

@@ -93,27 +93,39 @@ public abstract class Hash32 extends MessageDigestSpi implements Seguimiento {
     protected boolean porbloque;
 
     /**
-     * Operaciones obligatorias para instanciación sin seguimiento.
+     * Nombre del algoritmo.
      */
-    protected Hash32(){
+    protected String nombre;
+
+    /**
+     * Operaciones obligatorias para instanciación de los algoritmos Hash sin
+     * seguimiento.
+     *
+     * @param nombre Nombre del algoritmo.
+     */
+    protected Hash32(String nombre) {
+        this.nombre = nombre;
         this.opfuncion = new String[2];
         this.engineReset();
     }
-    
+
     /**
      * Operaciones obligatorias a realizar para instanciación con seguimiento.
-     * @param pasoapaso 
+     *
+     * @param nombre Nombre del algoritmo.
+     * @param pasoapaso true para realizar un seguimiento paso a paso.
      */
-    protected Hash32(boolean pasoapaso){
+    protected Hash32(String nombre, boolean pasoapaso) {
+        this.nombre = nombre;
         this.opfuncion = new String[2];
-        if(pasoapaso){
+        if (pasoapaso) {
             this.pasoapaso = true;
-        }else{
+        } else {
             this.porbloque = true;
         }
         this.engineReset();
     }
-    
+
     /**
      * Rotación a la izquierda del número de bits indicado.
      *
@@ -431,10 +443,10 @@ public abstract class Hash32 extends MessageDigestSpi implements Seguimiento {
 
     @Override
     public abstract byte[] engineDigest();
-    
+
     @Override
     public abstract void engineUpdate(byte input);
-    
+
     @Override
     public void engineUpdate(byte[] input, int offset, int len) {
         int end = offset + len;
@@ -452,5 +464,14 @@ public abstract class Hash32 extends MessageDigestSpi implements Seguimiento {
         for (int index = 0; index < opfuncion.length; index++) {
             opfuncion[index] = "";
         }
+    }
+
+    /**
+     * Retorna el nombre de la función hash.
+     *
+     * @return nombre que identifica a la función.
+     */
+    public String getNombre() {
+        return this.nombre;
     }
 }

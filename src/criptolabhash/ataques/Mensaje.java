@@ -19,62 +19,70 @@ package criptolabhash.ataques;
 import java.io.Serializable;
 
 /**
+ * Mensajes utilizados para comunicarse entre cliente y servidor. Los nombres de
+ * las respuestas a un mensaje que contengan datos, deberán llevar el sufijo
+ * ACK.
  *
- * @author José Ramón Cuevas  https://www.linkedin.com/in/joseramoncuevasdiez
+ * @author José Ramón Cuevas https://www.linkedin.com/in/joseramoncuevasdiez
  */
-public enum Mensaje implements Serializable {
+public class Mensaje implements Serializable {
 
-    ACK("ACK"),
-    REGISTRO("REGISTRO"),
-    START("START"),
-    STOP("STOP"),
-    RESET("RESET"),
-    SET("SET"),
-    GETMESSAGE("GETMESSAJE"),
-    PUTHASH("PUTHASH");
-
-    private final String comando;
+    private final TMensaje comando;
     private String algoritmo;
-    private Long semilla;
-    private Byte[] mensaje;
+    private Integer sizemsg;
+    private Integer sizehash;
+    private Long secuencia;
+    private Bytes mensaje;
 
     /**
-     * Setea el tipo de Mensaje.
+     * Setea el tipo de Mensaje y marca la secuencia con un indicador de tiempo.
      *
-     * @param comando
+     * @param comando Tipo de mensaje.
      */
-    Mensaje(String comando) {
+    public Mensaje(TMensaje comando) {
         this.comando = comando;
         this.algoritmo = null;
-        this.semilla = null;
+        this.sizemsg = null;
+        this.sizehash = null;
         this.mensaje = null;
+        this.secuencia = Secuencia.nextnumber();
     }
 
     /**
      * Indica un nombre de algoritmo.
      *
      * @param algoritmo Nombre del algoritmo.
+     * @param sizemsg Tamaño del mensaje en bytes.
+     * @param sizehash Tamaño del hash calculado en bytes.
+     * @return El propio mensaje.
      */
-    public void setAlgoritmo(String algoritmo) {
+    public Mensaje setAlgoritmo(String algoritmo, int sizemsg, int sizehash) {
         this.algoritmo = algoritmo;
+        this.sizemsg = sizemsg;
+        this.sizehash = sizehash;
+        return this;
     }
 
     /**
-     * Indica el valor de la semilla.
+     * Setea el valor de la secuencia del mensaje.
      *
-     * @param semilla Semilla que se utilizará.
+     * @param secuencia secuencia del mensaje.
+     * @return El propio mensaje.
      */
-    public void setSemilla(long semilla) {
-        this.semilla = semilla;
+    public Mensaje setSecuencia(long secuencia) {
+        this.secuencia = secuencia;
+        return this;
     }
 
     /**
      * Carga el contenido del mensaje en bytes.
      *
      * @param mensaje Mensaje o Hash.
+     * @return El propio mensaje.
      */
-    public void setMensaje(Byte[] mensaje) {
+    public Mensaje setMensaje(Bytes mensaje) {
         this.mensaje = mensaje;
+        return this;
     }
 
     /**
@@ -87,12 +95,30 @@ public enum Mensaje implements Serializable {
     }
 
     /**
-     * Devuelve el valor de la semilla si ha sido cargada.
+     * Devuelve el valor de la sizemsg si ha sido cargada.
+     *
+     * @return Tamaño de mensaje a generar.
+     */
+    public int getSizeMsg() {
+        return this.sizemsg;
+    }
+
+    /**
+     * Devuelve el valor de la sizehash si ha sido cargada.
+     *
+     * @return Tamaño de hash a calcular.
+     */
+    public int getSizeHash() {
+        return this.sizehash;
+    }
+
+    /**
+     * Devuelve el valor de la sizemsg si ha sido cargada.
      *
      * @return Semilla a utilizar.
      */
-    public Long getSemilla() {
-        return this.semilla;
+    public long getSecuencia() {
+        return this.secuencia;
     }
 
     /**
@@ -100,12 +126,12 @@ public enum Mensaje implements Serializable {
      *
      * @return Mensaje o Hash.
      */
-    public Byte[] getMensaje() {
+    public Bytes getMensaje() {
         return this.mensaje;
     }
 
     @Override
     public String toString() {
-        return this.comando;
+        return this.comando.toString();
     }
 }

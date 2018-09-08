@@ -14,29 +14,28 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package criptolabhash.ataques;
+package criptolabhash.ataques.cliente;
+
+import criptolabhash.ataques.Bytes;
 
 /**
- * Excepción lanzada cuando el cliente no tiene configuraciones seteadas.
+ * Funciones que debe tener el servidor
  *
  * @author José Ramón Cuevas https://www.linkedin.com/in/joseramoncuevasdiez
  */
-public class NoSetException extends Exception {
+public interface FuncionesServidor {
 
     /**
-     * Creates a new instance of <code>NoSetException</code> without detail
-     * message.
-     */
-    public NoSetException() {
-    }
-
-    /**
-     * Constructs an instance of <code>NoSetException</code> with the specified
-     * detail message.
+     * Registro del cliente en el servidor.
      *
-     * @param msg the detail message.
      */
-    public NoSetException(String msg) {
-        super(msg);
-    }
+    public void registroServidor();
+
+    /**
+     * Añadir hash al mapa del servidor.
+     *
+     * @param hash Hash generado a partir de un mensaje pseudoaleatorio.
+     */
+    public void putHashServidor(Bytes hash);
+
 }

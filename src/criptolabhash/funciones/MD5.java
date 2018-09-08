@@ -47,7 +47,7 @@ public class MD5 extends Hash32 implements Seguimiento{
      * Instanciación sin seguimiento.
      */
     public MD5(){
-        super();
+        super("MD5");
     }
     
     /**
@@ -56,7 +56,7 @@ public class MD5 extends Hash32 implements Seguimiento{
      * por bloques.
      */
     public MD5(boolean pasoapaso){
-        super(pasoapaso);
+        super("MD5", pasoapaso);
     }
     
     /**

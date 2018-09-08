@@ -14,12 +14,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package criptolabhash.ataques;
+package criptolabhash.ataques.servidor;
+
+import criptolabhash.ataques.Bytes;
+import criptolabhash.ataques.NoSetException;
 
 /**
  * Funciones que debe disponer el cliente
  *
- * @author José Ramón Cuevas  https://www.linkedin.com/in/joseramoncuevasdiez
+ * @author José Ramón Cuevas https://www.linkedin.com/in/joseramoncuevasdiez
  */
 public interface FuncionesCliente {
 
@@ -28,40 +31,45 @@ public interface FuncionesCliente {
      * Primero para la ejecución actual luego efectua
      *
      * @param algoritmo Nombre del algoritmo a utilizar.
-     * @param semilla Semilla con la que se generarán los mensajes pseudoaleatorios.
-     * @throws NullPointerException En caso de algún problema de comunicación.
+     * @param sizemsg Longitud en bytes con la que se generarán los mensajes
+     * pseudoaleatorios.
+     * @param sizehash Longitud en bytes con la que se calcularan los hash.
+     * (Valores válidos 0 = tamaño original del algoritmo, o mayor que 0)
      */
-    public void setFuncion(String algoritmo, long semilla) throws NullPointerException;
+    public void setFuncionCliente(String algoritmo, int sizemsg, int sizehash);
 
     /**
      * Comienza o reanuda la ejecución con los valores seteados.
      *
-     * @throws NullPointerException En caso de algún problema de comunicación.
      * @throws NoSetException No se ha configurado el algoritmo a usar.
      */
-    public void start() throws NullPointerException, NoSetException;
+    public void startCliente() throws NoSetException;
 
     /**
      * Para la ejecución actual.
      *
-     * @throws NullPointerException En caso de algún problema de comunicación.
      */
-    public void stop() throws NullPointerException;
+    public void stopCliente();
 
     /**
      * Para la ejecución actual y elimina el mapa de los códigos explorados
      *
-     * @throws NullPointerException En caso de algún problema de comunicación.
      */
-    public void reset() throws NullPointerException;
+    public void resetCliente();
 
     /**
      * Consigue el mensaje que generó el hash facilitado.
      *
      * @param hash Hash que ha sido generado anteriormente.
+     * @param ultimo Si se quiere que sea el último poner a true;
      * @return Mensaje solicitado.
-     * @throws NullPointerException En caso de algún problema de comunicación.
      */
-    public Byte[] getMessage(Byte[] hash) throws NullPointerException;
+    public Bytes getMessageCliente(Bytes hash, boolean ultimo);
 
+    /**
+     * Envía un mensaje al cliente para que salga de ejecución y termina la
+     * ejecución de este hilo.
+     *
+     */
+    public void apagaCliente();
 }

@@ -41,7 +41,7 @@ public class SHA1 extends Hash32 implements Seguimiento {
      * Instanciación sin seguimiento.
      */
     public SHA1() {
-        super();
+        super("SHA1");
     }
 
     /**
@@ -51,7 +51,7 @@ public class SHA1 extends Hash32 implements Seguimiento {
      * por bloques.
      */
     public SHA1(boolean pasoapaso) {
-        super(pasoapaso);
+        super("SHA1", pasoapaso);
     }
 
     /**
