@@ -423,7 +423,7 @@ public abstract class Hash32 extends MessageDigestSpi implements Seguimiento {
      * @return Número de bloque.
      */
     protected long nBloque() {
-        return size / 512 + ((size % 512 > 0) ? 1 : 0);
+        return (size / 512) + ((size % 512 > 0) ? 1 : 0);
     }
 
     /**

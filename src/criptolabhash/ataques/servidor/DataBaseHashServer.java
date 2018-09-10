@@ -79,18 +79,25 @@ public class DataBaseHashServer implements APIServerHash {
      * Almacena los hashes asociados con una lista de mensajes que los producen.
      */
     private Colisiones colisiones;
+    
+    /**
+     * Información sobre ip y puerto de escucha.
+     */
+    private String infoConexion;
 
     /**
      * Constructor que inicializa las bases de datos.
      *
      * @param algoritmo Algoritmo inicial a utilizar.
      * @param sizemsg Tamaño del mensaje.
+     * @param infoConexion Información de ip y puerto de escucha del servidor.
      */
-    public DataBaseHashServer(String algoritmo, int sizemsg) {
+    public DataBaseHashServer(String algoritmo, int sizemsg, String infoConexion) {
         this.algoritmo = algoritmo;
         this.sizemsg = sizemsg;
         this.sizehash = 0;
         this.clientes = Collections.synchronizedList(new ArrayList());
+        this.infoConexion = infoConexion;
         resetDB();
     }
 
@@ -173,7 +180,6 @@ public class DataBaseHashServer implements APIServerHash {
         Iterator<HiloServidorCliente> iterator = clientes.iterator();
         while (iterator.hasNext()) {
             HiloServidorCliente cliente = iterator.next();
-            cliente.resetCliente();
             cliente.setFuncionCliente(this.algoritmo, this.sizemsg, this.sizehash);
         }
     }
@@ -205,6 +211,7 @@ public class DataBaseHashServer implements APIServerHash {
             HiloServidorCliente cliente = iterator.next();
             cliente.apagaCliente();
         }
+        this.resetDB();
     }
 
     @Override
@@ -244,6 +251,15 @@ public class DataBaseHashServer implements APIServerHash {
 
     @Override
     public String getInformeColisiones() {
-        return this.colisiones.getInformeColisiones();
+        String informe = this.colisiones.getInformeColisiones();
+        if (informe == null || informe.equals("")){
+            informe = "Hasta ahora no se han encontrado colisiones.";
+        }
+        return informe;
+    }
+
+    @Override
+    public String getInfoConexion() {
+        return this.infoConexion;
     }
 }

@@ -106,8 +106,8 @@ public class CriptoLabHashCliente {
      * Muestra el estado de calculos del cliente cada segundo.
      *
      * @param cliente Cliente.
-     * @param segundos
-     * @throws InterruptedException
+     * @param segundos tiempo de monitorización.
+     * @throws InterruptedException Si se ha recibido una orden de parar la ejecución.
      */
     public static void monitorizaEstado(APIClienteHash cliente, int segundos) throws InterruptedException {
         int timeout = segundos;

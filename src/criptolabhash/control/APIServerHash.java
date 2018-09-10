@@ -111,4 +111,11 @@ public interface APIServerHash {
      * @return Informe en formato texto plano de 64 caracteres de ancho.
      */
     public String getInformeColisiones();
+
+    /**
+     * Consulta en que ip y puerto esta escuchando el servidor.
+     *
+     * @return Texto con ip y puerto.
+     */
+    public String getInfoConexion();
 }

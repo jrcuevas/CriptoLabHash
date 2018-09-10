@@ -18,52 +18,96 @@ package criptolabhash.funciones;
 
 /**
  * Fábrica de instancias de funciones hash.
+ *
  * @author José Ramón Cuevas https://www.linkedin.com/in/joseramoncuevasdiez
  */
 public class FabricaHash {
-    
+
+    // Lista de algoritmos que instanciará esta fábrica.
+    public final static String MD5 = "MD5";
+    public final static String SHA1 = "SHA1";
+
+    /**
+     * Mapeo de algoritmos que puede instanciar esta fábrica y la longitud en
+     * bytes del resumen hash.
+     */
+    private final static String[][] ALGORITMOS = new String[][]{{MD5, "16"}, {SHA1, "20"}};
+
+    /**
+     * Devuelve un array con la lista de algoritmos disponibles.
+     *
+     * @return Array de nombres de algoritmos.
+     */
+    public final static String[] arrayAlgoritmos() {
+        String[] algoritmos = new String[ALGORITMOS.length];
+        for (int index = 0; index < ALGORITMOS.length; index++) {
+            algoritmos[index] = ALGORITMOS[index][0];
+        }
+        return algoritmos;
+    }
+
+    /**
+     * Devuelve la longitud en bytes que posee el resumen de salida del
+     * algoritmo indicado.
+     *
+     * @param algoritmo Nombre del algoritmo.
+     * @return Longitud en bytes.
+     */
+    public final static int longitudHash(String algoritmo) {
+        int index = 0;
+        while (index < ALGORITMOS.length) {
+            if (ALGORITMOS[index][0].equals(algoritmo)) {
+                return Integer.parseInt(ALGORITMOS[index][1]);
+            }
+        }
+        return 0;
+    }
+
     /**
      * Fabrica de instancias hash.
+     *
      * @param algoritmo Nombre del algoritmo.
      * @return Instancia del algoritmo deseado.
      */
-    public static Hash32 getInstance(String algoritmo){
-        switch(algoritmo){
-            case "MD5":
+    public final static Hash32 getInstance(String algoritmo) {
+        switch (algoritmo) {
+            case MD5:
                 return new MD5();
-            case "SHA1":
+            case SHA1:
                 return new SHA1();
             default:
                 return null;
         }
     }
-    
+
     /**
      * Fabrica de instancias hash con seguimiento pasoapaso.
+     *
      * @param algoritmo Nombre del algoritmo.
      * @return Instancia del algoritmo deseado.
      */
-    public static Hash32 getInstancePasoapaso(String algoritmo){
-        switch(algoritmo){
-            case "MD5":
+    public final static Hash32 getInstancePasoapaso(String algoritmo) {
+        switch (algoritmo) {
+            case MD5:
                 return new MD5(true);
-            case "SHA1":
+            case SHA1:
                 return new SHA1(true);
             default:
                 return null;
         }
     }
-    
+
     /**
      * Fabrica de instancias hash con seguimiento por bloques.
+     *
      * @param algoritmo Nombre del algoritmo.
      * @return Instancia del algoritmo deseado.
      */
-    public static Hash32 getInstancePorbloque(String algoritmo){
-        switch(algoritmo){
-            case "MD5":
+    public final static Hash32 getInstancePorbloque(String algoritmo) {
+        switch (algoritmo) {
+            case MD5:
                 return new MD5(false);
-            case "SHA1":
+            case SHA1:
                 return new SHA1(false);
             default:
                 return null;

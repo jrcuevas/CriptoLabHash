@@ -18,6 +18,7 @@ package criptolabhash.ataques.servidor;
 
 import criptolabhash.control.APIServerHash;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -29,42 +30,35 @@ import java.net.Socket;
 public class ServidorCumpleanos extends Thread {
 
     private final DataBaseHashServer dbhashserver;
-    private final int puerto;
-    private boolean activo;
+    private final ServerSocket serversocket;
+    public boolean activo;
 
     /**
      * Implementación del servidor con MD5 como algoritmo por defecto y mensajes
      * del tamaño de 10 bytes.
      *
      * @param puerto Puerto donde estará esperando a los clientes.
+     * @param ip Direción io de escucha.
+     * @throws IOException Si ha habido algún problema al arrancar el servidor.
      */
-    public ServidorCumpleanos(int puerto) {
+    public ServidorCumpleanos(int puerto, InetAddress ip) throws IOException {
+        serversocket = new ServerSocket(puerto, 1, ip);
         this.activo = true;
-        this.puerto = puerto;
-        dbhashserver = new DataBaseHashServer("MD5", 10);
+        dbhashserver = new DataBaseHashServer("MD5", 10, infoConexion());
     }
 
     @Override
     public void run() {
-
-        try {
-            ServerSocket serversocket = new ServerSocket(puerto);
-
-            while (activo) {
-                Socket cliente;
-                try {
-                    System.out.println("Esperando cliente.");
-                    cliente = serversocket.accept();
-                    Thread hilo = new HiloServidorCliente(cliente, this.dbhashserver);
-                    hilo.start();
-                    System.out.println("Cliente arranacado: " + hilo.getId());
-                } catch (IOException ex) {
-                    System.out.println("No se ha podido conectar con el cliente: " + ex.getMessage());
-                }
-
+        while (activo) {
+            Socket cliente;
+            try {
+                cliente = serversocket.accept();
+                Thread hilo = new HiloServidorCliente(cliente, this.dbhashserver);
+                hilo.start();
+            } catch (Exception ex) {
+                System.out.println("No se ha podido conectar con el cliente: " + ex.getMessage());
+                break;
             }
-        } catch (IOException ex) {
-            System.out.println("No se ha podido arrancar el servidor: " + ex.getMessage());
         }
     }
 
@@ -75,5 +69,14 @@ public class ServidorCumpleanos extends Thread {
      */
     public APIServerHash getAPIServer() {
         return this.dbhashserver;
+    }
+
+    /**
+     * Ip y puerto de escucha.
+     *
+     * @return ip y puertode escucha.
+     */
+    private String infoConexion() {
+        return "Escuchando en: " + serversocket.getInetAddress().getHostAddress() + ":" + serversocket.getLocalPort();
     }
 }
