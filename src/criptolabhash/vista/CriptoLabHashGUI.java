@@ -20,10 +20,16 @@ import criptolabhash.control.APISeguimientoHash;
 import criptolabhash.control.APIServerHash;
 import criptolabhash.funciones.AlimentadorHash;
 import criptolabhash.funciones.FabricaHash;
+import java.awt.print.PrinterException;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -129,6 +135,28 @@ public class CriptoLabHashGUI extends javax.swing.JPanel {
             }
         }
     }
+   
+    /**
+     * Guarda un texto en un fichero, si no existe lo crea, si ya existe borra,
+     * su contenido.
+     * 
+     * @param informe informe a guardar.
+     */
+    private void guardarenArchivo(JTextArea informe) {
+        JFileChooser selectorarchivo = new JFileChooser();
+        //FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.TXT", "txt");
+        //selectorarchivo.setFileFilter(filtro);
+        int resultado = selectorarchivo.showSaveDialog(null);
+        try {
+            if (resultado == JFileChooser.APPROVE_OPTION) {
+                Path path = selectorarchivo.getSelectedFile().toPath();
+                Files.write(path, informe.getText().getBytes(), StandardOpenOption.WRITE, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+                JOptionPane.showMessageDialog(null, "Texto guardado correctamente.", "Guardando archivo", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Error al guardar el texto: " + ex.getMessage(), "Guardando archivo", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -141,36 +169,13 @@ public class CriptoLabHashGUI extends javax.swing.JPanel {
 
         modoinforme = new javax.swing.ButtonGroup();
         tipoentrada = new javax.swing.ButtonGroup();
-        entradaerronea = new javax.swing.JDialog();
+        acercade = new javax.swing.JDialog();
         jButton1 = new javax.swing.JButton();
         textoinformativo = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        informeseguimiento = new javax.swing.JTextArea();
-        jPanel3 = new javax.swing.JPanel();
-        algoritmoi = new javax.swing.JComboBox<>();
-        jLabel8 = new javax.swing.JLabel();
-        informeno = new javax.swing.JRadioButton();
-        informebloque = new javax.swing.JRadioButton();
-        informepaso = new javax.swing.JRadioButton();
-        jPanel4 = new javax.swing.JPanel();
-        botonarchivo = new javax.swing.JButton();
-        nombrearchivo = new javax.swing.JTextField();
-        jPanel5 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        entradateclado = new javax.swing.JTextArea();
-        earchivo = new javax.swing.JRadioButton();
-        etexto = new javax.swing.JRadioButton();
-        ehexadecimal = new javax.swing.JRadioButton();
-        jPanel6 = new javax.swing.JPanel();
-        salidahash = new javax.swing.JTextField();
-        botonprocesar = new javax.swing.JButton();
-        tiempo = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        informecolisiones = new javax.swing.JTextArea();
-        jPanel7 = new javax.swing.JPanel();
+        panelAtaque = new javax.swing.JPanel();
+        panelIzquierdoA = new javax.swing.JPanel();
+        panelconfiguracion = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -178,14 +183,15 @@ public class CriptoLabHashGUI extends javax.swing.JPanel {
         sizehash = new javax.swing.JSpinner();
         algoritmoa = new javax.swing.JComboBox<>();
         botonaplicar = new javax.swing.JButton();
-        jPanel8 = new javax.swing.JPanel();
+        panelcontrol = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         nclientes = new javax.swing.JTextField();
         botonapagar = new javax.swing.JButton();
         botonreset = new javax.swing.JButton();
         botonarrancar = new javax.swing.JButton();
         botonparar = new javax.swing.JButton();
-        jPanel9 = new javax.swing.JPanel();
+        infoconexion = new javax.swing.JLabel();
+        panelmonitorizacion = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         nhashes = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -196,9 +202,43 @@ public class CriptoLabHashGUI extends javax.swing.JPanel {
         nhashseg = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         botoninforme = new javax.swing.JButton();
-        infoconexion = new javax.swing.JLabel();
+        panelderechoA = new javax.swing.JPanel();
+        scrollpanelAtaque = new javax.swing.JScrollPane();
+        informecolisiones = new javax.swing.JTextArea();
+        jPanel1 = new javax.swing.JPanel();
+        guardarA = new javax.swing.JButton();
+        imprimirA = new javax.swing.JButton();
+        panelSeguimiento = new javax.swing.JPanel();
+        panelizquierdoS = new javax.swing.JPanel();
+        panelopciones = new javax.swing.JPanel();
+        algoritmoi = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
+        informeno = new javax.swing.JRadioButton();
+        informebloque = new javax.swing.JRadioButton();
+        informepaso = new javax.swing.JRadioButton();
+        panelentrada = new javax.swing.JPanel();
+        botonarchivo = new javax.swing.JButton();
+        nombrearchivo = new javax.swing.JTextField();
+        jPanel5 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        entradateclado = new javax.swing.JTextArea();
+        earchivo = new javax.swing.JRadioButton();
+        etexto = new javax.swing.JRadioButton();
+        ehexadecimal = new javax.swing.JRadioButton();
+        panelsalida = new javax.swing.JPanel();
+        salidahash = new javax.swing.JTextField();
+        botonprocesar = new javax.swing.JButton();
+        tiempo = new javax.swing.JLabel();
+        panelderechoS = new javax.swing.JPanel();
+        scrollpanelSeguimiento = new javax.swing.JScrollPane();
+        informeseguimiento = new javax.swing.JTextArea();
+        jPanel2 = new javax.swing.JPanel();
+        guardarS = new javax.swing.JButton();
+        imprimirS = new javax.swing.JButton();
 
-        entradaerronea.setTitle("Entrada");
+        acercade.setTitle("Acerca de");
+        acercade.setUndecorated(true);
+        acercade.setResizable(false);
 
         jButton1.setText("Aceptar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -207,254 +247,46 @@ public class CriptoLabHashGUI extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout entradaerroneaLayout = new javax.swing.GroupLayout(entradaerronea.getContentPane());
-        entradaerronea.getContentPane().setLayout(entradaerroneaLayout);
-        entradaerroneaLayout.setHorizontalGroup(
-            entradaerroneaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(textoinformativo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(entradaerroneaLayout.createSequentialGroup()
-                .addGap(145, 145, 145)
+        textoinformativo.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        textoinformativo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoinformativo.setText("Master Universitario en Seguridad Informática");
+
+        javax.swing.GroupLayout acercadeLayout = new javax.swing.GroupLayout(acercade.getContentPane());
+        acercade.getContentPane().setLayout(acercadeLayout);
+        acercadeLayout.setHorizontalGroup(
+            acercadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(textoinformativo, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(acercadeLayout.createSequentialGroup()
+                .addGap(173, 173, 173)
+                .addComponent(jButton1))
+        );
+        acercadeLayout.setVerticalGroup(
+            acercadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(acercadeLayout.createSequentialGroup()
+                .addComponent(textoinformativo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 169, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addContainerGap(163, Short.MAX_VALUE))
-        );
-        entradaerroneaLayout.setVerticalGroup(
-            entradaerroneaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, entradaerroneaLayout.createSequentialGroup()
-                .addComponent(textoinformativo, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(24, 24, 24))
         );
 
-        informeseguimiento.setEditable(false);
-        informeseguimiento.setColumns(20);
-        informeseguimiento.setFont(new java.awt.Font("Courier", 0, 14)); // NOI18N
-        informeseguimiento.setRows(5);
-        informeseguimiento.setToolTipText("Panel donde aparecerá el informe.");
-        jScrollPane2.setViewportView(informeseguimiento);
+        setMaximumSize(new java.awt.Dimension(1024, 610));
+        setPreferredSize(new java.awt.Dimension(1024, 610));
+        setSize(new java.awt.Dimension(1024, 610));
+        setLayout(new java.awt.BorderLayout());
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Opciones del algoritmo"));
+        jTabbedPane1.setMinimumSize(new java.awt.Dimension(1024, 610));
+        jTabbedPane1.setPreferredSize(new java.awt.Dimension(1024, 610));
 
-        algoritmoi.setModel(new javax.swing.DefaultComboBoxModel<>(FabricaHash.arrayAlgoritmos()));
-        algoritmoi.setToolTipText("Algoritmo que se empleará para realizar el cálculo del hash y los seguimientos.");
+        panelAtaque.setLayout(new java.awt.BorderLayout());
 
-        jLabel8.setText("Algoritmo");
+        panelIzquierdoA.setPreferredSize(new java.awt.Dimension(378, 540));
+        panelIzquierdoA.setSize(new java.awt.Dimension(378, 540));
+        panelIzquierdoA.setLayout(new java.awt.BorderLayout());
 
-        modoinforme.add(informeno);
-        informeno.setSelected(true);
-        informeno.setText("Sin informe");
-        informeno.setToolTipText("Cálculo del hash sin generar un informe.");
-
-        modoinforme.add(informebloque);
-        informebloque.setText("Informe a nivel de bloque");
-        informebloque.setToolTipText("Informe a nivel de bloque de las operaciones realizadas, para calcular el hash.");
-
-        modoinforme.add(informepaso);
-        informepaso.setText("Informe paso a paso");
-        informepaso.setToolTipText("Informe a nivel de paso a paso de las operaciones realizadas, para calcular el hash.");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(algoritmoi, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(informepaso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(informebloque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(informeno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(algoritmoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(informeno)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(informebloque)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(informepaso)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Entrada"));
-
-        botonarchivo.setText("Archivo");
-        botonarchivo.setToolTipText("Selecciona el archivo que se utilizará para calcular el hash.");
-        botonarchivo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonarchivoActionPerformed(evt);
-            }
-        });
-
-        nombrearchivo.setEditable(false);
-
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Entrada por teclado"));
-
-        entradateclado.setColumns(20);
-        entradateclado.setRows(5);
-        entradateclado.setToolTipText("El texto que aquí se introduzca se utilizará para el cálculo del hash.");
-        entradateclado.setEnabled(false);
-        jScrollPane3.setViewportView(entradateclado);
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
-        );
-
-        tipoentrada.add(earchivo);
-        earchivo.setSelected(true);
-        earchivo.setText("Archivo");
-        earchivo.setToolTipText("Selecciona como entrada del algoritmo, el archivo que se indique más abajo.");
-        earchivo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                earchivoActionPerformed(evt);
-            }
-        });
-
-        tipoentrada.add(etexto);
-        etexto.setText("Texto");
-        etexto.setToolTipText("Selecciona el texto introducido en el panel inferior como entrada para el algoritmo.");
-        etexto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                etextoActionPerformed(evt);
-            }
-        });
-
-        tipoentrada.add(ehexadecimal);
-        ehexadecimal.setText("Hexadecimal");
-        ehexadecimal.setToolTipText("Selecciona el texto en hexadecimal introducido mas abajo como entrada para el algoritmo.");
-        ehexadecimal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ehexadecimalActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(botonarchivo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nombrearchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(earchivo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(etexto)
-                        .addGap(34, 34, 34)
-                        .addComponent(ehexadecimal)))
-                .addContainerGap())
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(earchivo)
-                    .addComponent(etexto)
-                    .addComponent(ehexadecimal))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonarchivo)
-                    .addComponent(nombrearchivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Salida"));
-
-        salidahash.setEditable(false);
-        salidahash.setToolTipText("Número hash calculado a partir de la información disponible en la entrada.");
-
-        botonprocesar.setText("Procesar");
-        botonprocesar.setToolTipText("Calcular el hash con los valores anteriormente introducidos.");
-        botonprocesar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonprocesarActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(salidahash, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(botonprocesar)
-                        .addGap(18, 18, 18)
-                        .addComponent(tiempo, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(salidahash, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonprocesar)
-                    .addComponent(tiempo)))
-        );
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jTabbedPane1.addTab("Calculo y seguimiento de las funciones Hash", jPanel1);
-
-        informecolisiones.setEditable(false);
-        informecolisiones.setColumns(20);
-        informecolisiones.setFont(new java.awt.Font("Courier", 0, 14)); // NOI18N
-        informecolisiones.setRows(5);
-        informecolisiones.setToolTipText("Panel donde aparecerá el informe.");
-        jScrollPane1.setViewportView(informecolisiones);
-
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Configuración del ataque"));
+        panelconfiguracion.setBorder(javax.swing.BorderFactory.createTitledBorder("Configuración del ataque"));
+        panelconfiguracion.setMaximumSize(new java.awt.Dimension(378, 130));
+        panelconfiguracion.setPreferredSize(new java.awt.Dimension(378, 130));
+        panelconfiguracion.setSize(new java.awt.Dimension(378, 130));
 
         jLabel1.setText("Algoritmo");
 
@@ -480,47 +312,54 @@ public class CriptoLabHashGUI extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(algoritmoa, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(sizehash, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(sizemsg, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(botonaplicar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        javax.swing.GroupLayout panelconfiguracionLayout = new javax.swing.GroupLayout(panelconfiguracion);
+        panelconfiguracion.setLayout(panelconfiguracionLayout);
+        panelconfiguracionLayout.setHorizontalGroup(
+            panelconfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelconfiguracionLayout.createSequentialGroup()
+                .addGroup(panelconfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelconfiguracionLayout.createSequentialGroup()
+                        .addGroup(panelconfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(botonaplicar, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                            .addComponent(algoritmoa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(63, 63, 63)
+                        .addComponent(sizehash, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelconfiguracionLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2)))
+                .addGap(18, 18, 18)
+                .addGroup(panelconfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(sizemsg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23))
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+        panelconfiguracionLayout.setVerticalGroup(
+            panelconfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelconfiguracionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelconfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelconfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(algoritmoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sizehash, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sizemsg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(botonaplicar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
-        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder("Control de ejecución"));
+        panelIzquierdoA.add(panelconfiguracion, java.awt.BorderLayout.NORTH);
+
+        panelcontrol.setBorder(javax.swing.BorderFactory.createTitledBorder("Control de ejecución"));
+        panelcontrol.setLocation(new java.awt.Point(-32751, -32729));
+        panelcontrol.setMaximumSize(new java.awt.Dimension(378, 154));
+        panelcontrol.setPreferredSize(new java.awt.Dimension(378, 154));
+        panelcontrol.setSize(new java.awt.Dimension(378, 154));
 
         jLabel4.setText("Número de clientes conectados");
 
@@ -565,47 +404,61 @@ public class CriptoLabHashGUI extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelcontrolLayout = new javax.swing.GroupLayout(panelcontrol);
+        panelcontrol.setLayout(panelcontrolLayout);
+        panelcontrolLayout.setHorizontalGroup(
+            panelcontrolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelcontrolLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(nclientes, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(botonapagar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(botonreset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(botonparar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(botonarrancar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(35, 35, 35))
+                .addGroup(panelcontrolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelcontrolLayout.createSequentialGroup()
+                        .addComponent(infoconexion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(panelcontrolLayout.createSequentialGroup()
+                        .addGroup(panelcontrolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelcontrolLayout.createSequentialGroup()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(nclientes, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6))
+                            .addGroup(panelcontrolLayout.createSequentialGroup()
+                                .addGroup(panelcontrolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(botonapagar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(botonreset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(80, 87, Short.MAX_VALUE)
+                                .addGroup(panelcontrolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(botonparar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(botonarrancar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(35, 35, 35))))
         );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
+        panelcontrolLayout.setVerticalGroup(
+            panelcontrolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelcontrolLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelcontrolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(nclientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelcontrolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonreset)
                     .addComponent(botonarrancar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelcontrolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonapagar)
                     .addComponent(botonparar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(infoconexion)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Monitorización del proceso"));
-        jPanel9.setToolTipText("");
+        panelIzquierdoA.add(panelcontrol, java.awt.BorderLayout.WEST);
+
+        panelmonitorizacion.setBorder(javax.swing.BorderFactory.createTitledBorder("Monitorización del proceso"));
+        panelmonitorizacion.setToolTipText("");
+        panelmonitorizacion.setLocation(new java.awt.Point(-32751, -32729));
+        panelmonitorizacion.setMaximumSize(new java.awt.Dimension(378, 265));
+        panelmonitorizacion.setPreferredSize(new java.awt.Dimension(378, 265));
+        panelmonitorizacion.setSize(new java.awt.Dimension(378, 200));
 
         jLabel5.setText("Número de hash calculados");
 
@@ -645,110 +498,404 @@ public class CriptoLabHashGUI extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelmonitorizacionLayout = new javax.swing.GroupLayout(panelmonitorizacion);
+        panelmonitorizacion.setLayout(panelmonitorizacionLayout);
+        panelmonitorizacionLayout.setHorizontalGroup(
+            panelmonitorizacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelmonitorizacionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(infoconexion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGroup(panelmonitorizacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelmonitorizacionLayout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(nhashes))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(panelmonitorizacionLayout.createSequentialGroup()
+                        .addGroup(panelmonitorizacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(panelmonitorizacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelmonitorizacionLayout.createSequentialGroup()
                                 .addGap(6, 6, 6)
-                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(panelmonitorizacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(ncolisiones)
                                     .addComponent(npseudocolisiones)))
-                            .addGroup(jPanel9Layout.createSequentialGroup()
+                            .addGroup(panelmonitorizacionLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(nhashseg))))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panelmonitorizacionLayout.createSequentialGroup()
+                        .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botoninforme)))
                 .addContainerGap())
         );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
+        panelmonitorizacionLayout.setVerticalGroup(
+            panelmonitorizacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelmonitorizacionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelmonitorizacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nhashes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelmonitorizacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(nhashseg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelmonitorizacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(ncolisiones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelmonitorizacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(npseudocolisiones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelmonitorizacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(botoninforme))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(infoconexion)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        panelIzquierdoA.add(panelmonitorizacion, java.awt.BorderLayout.SOUTH);
+
+        panelAtaque.add(panelIzquierdoA, java.awt.BorderLayout.WEST);
+
+        panelderechoA.setPreferredSize(new java.awt.Dimension(619, 540));
+        panelderechoA.setSize(new java.awt.Dimension(619, 540));
+        panelderechoA.setLayout(new java.awt.BorderLayout());
+
+        scrollpanelAtaque.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollpanelAtaque.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollpanelAtaque.setMaximumSize(new java.awt.Dimension(700, 520));
+        scrollpanelAtaque.setPreferredSize(new java.awt.Dimension(619, 520));
+        scrollpanelAtaque.setSize(new java.awt.Dimension(619, 520));
+
+        informecolisiones.setEditable(false);
+        informecolisiones.setFont(new java.awt.Font("Courier", 0, 14)); // NOI18N
+        informecolisiones.setToolTipText("Panel donde aparecerá el informe.");
+        scrollpanelAtaque.setViewportView(informecolisiones);
+
+        panelderechoA.add(scrollpanelAtaque, java.awt.BorderLayout.NORTH);
+
+        jPanel1.setMinimumSize(new java.awt.Dimension(619, 40));
+        jPanel1.setPreferredSize(new java.awt.Dimension(619, 40));
+        jPanel1.setSize(new java.awt.Dimension(619, 40));
+
+        guardarA.setText("Guardar");
+        guardarA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarAActionPerformed(evt);
+            }
+        });
+
+        imprimirA.setText("Imprimir");
+        imprimirA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imprimirAActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(87, 87, 87)
+                .addComponent(guardarA)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 212, Short.MAX_VALUE)
+                .addComponent(imprimirA)
+                .addGap(129, 129, 129))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(guardarA)
+                    .addComponent(imprimirA))
+                .addContainerGap())
+        );
+
+        panelderechoA.add(jPanel1, java.awt.BorderLayout.SOUTH);
+
+        panelAtaque.add(panelderechoA, java.awt.BorderLayout.EAST);
+
+        jTabbedPane1.addTab("Ataques a las funciones hash", panelAtaque);
+
+        panelSeguimiento.setLayout(new java.awt.BorderLayout());
+
+        panelizquierdoS.setMaximumSize(new java.awt.Dimension(378, 540));
+        panelizquierdoS.setMinimumSize(new java.awt.Dimension(378, 540));
+        panelizquierdoS.setPreferredSize(new java.awt.Dimension(378, 540));
+        panelizquierdoS.setSize(new java.awt.Dimension(378, 540));
+        panelizquierdoS.setLayout(new java.awt.BorderLayout());
+
+        panelopciones.setBorder(javax.swing.BorderFactory.createTitledBorder("Opciones del algoritmo"));
+        panelopciones.setMaximumSize(new java.awt.Dimension(378, 150));
+        panelopciones.setMinimumSize(new java.awt.Dimension(378, 150));
+        panelopciones.setPreferredSize(new java.awt.Dimension(378, 150));
+        panelopciones.setSize(new java.awt.Dimension(378, 150));
+
+        algoritmoi.setModel(new javax.swing.DefaultComboBoxModel<>(FabricaHash.arrayAlgoritmos()));
+        algoritmoi.setToolTipText("Algoritmo que se empleará para realizar el cálculo del hash y los seguimientos.");
+
+        jLabel8.setText("Algoritmo");
+
+        modoinforme.add(informeno);
+        informeno.setSelected(true);
+        informeno.setText("Sin informe");
+        informeno.setToolTipText("Cálculo del hash sin generar un informe.");
+
+        modoinforme.add(informebloque);
+        informebloque.setText("Informe a nivel de bloque");
+        informebloque.setToolTipText("Informe a nivel de bloque de las operaciones realizadas, para calcular el hash.");
+
+        modoinforme.add(informepaso);
+        informepaso.setText("Informe paso a paso");
+        informepaso.setToolTipText("Informe a nivel de paso a paso de las operaciones realizadas, para calcular el hash.");
+
+        javax.swing.GroupLayout panelopcionesLayout = new javax.swing.GroupLayout(panelopciones);
+        panelopciones.setLayout(panelopcionesLayout);
+        panelopcionesLayout.setHorizontalGroup(
+            panelopcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelopcionesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelopcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(informepaso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(informebloque, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                    .addGroup(panelopcionesLayout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(algoritmoi, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(informeno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(132, Short.MAX_VALUE))
+        );
+        panelopcionesLayout.setVerticalGroup(
+            panelopcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelopcionesLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelopcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(algoritmoi, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(informeno)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(informebloque)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(informepaso)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        panelizquierdoS.add(panelopciones, java.awt.BorderLayout.NORTH);
+
+        panelentrada.setBorder(javax.swing.BorderFactory.createTitledBorder("Entrada"));
+        panelentrada.setMaximumSize(new java.awt.Dimension(378, 228));
+        panelentrada.setMinimumSize(new java.awt.Dimension(378, 228));
+        panelentrada.setPreferredSize(new java.awt.Dimension(378, 228));
+        panelentrada.setSize(new java.awt.Dimension(378, 228));
+
+        botonarchivo.setText("Archivo");
+        botonarchivo.setToolTipText("Selecciona el archivo que se utilizará para calcular el hash.");
+        botonarchivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonarchivoActionPerformed(evt);
+            }
+        });
+
+        nombrearchivo.setEditable(false);
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Entrada por teclado"));
+
+        jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        entradateclado.setLineWrap(true);
+        entradateclado.setToolTipText("El texto que aquí se introduzca se utilizará para el cálculo del hash.");
+        entradateclado.setEnabled(false);
+        jScrollPane3.setViewportView(entradateclado);
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+        );
+
+        tipoentrada.add(earchivo);
+        earchivo.setSelected(true);
+        earchivo.setText("Archivo");
+        earchivo.setToolTipText("Selecciona como entrada del algoritmo, el archivo que se indique más abajo.");
+        earchivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                earchivoActionPerformed(evt);
+            }
+        });
+
+        tipoentrada.add(etexto);
+        etexto.setText("Texto");
+        etexto.setToolTipText("Selecciona el texto introducido en el panel inferior como entrada para el algoritmo.");
+        etexto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                etextoActionPerformed(evt);
+            }
+        });
+
+        tipoentrada.add(ehexadecimal);
+        ehexadecimal.setText("Hexadecimal");
+        ehexadecimal.setToolTipText("Selecciona el texto en hexadecimal introducido mas abajo como entrada para el algoritmo.");
+        ehexadecimal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ehexadecimalActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelentradaLayout = new javax.swing.GroupLayout(panelentrada);
+        panelentrada.setLayout(panelentradaLayout);
+        panelentradaLayout.setHorizontalGroup(
+            panelentradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(panelentradaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelentradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelentradaLayout.createSequentialGroup()
+                        .addComponent(earchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(59, 59, 59)
+                        .addComponent(etexto)
+                        .addGap(34, 34, 34)
+                        .addComponent(ehexadecimal)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(panelentradaLayout.createSequentialGroup()
+                        .addComponent(botonarchivo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nombrearchivo)))
+                .addContainerGap())
+        );
+        panelentradaLayout.setVerticalGroup(
+            panelentradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelentradaLayout.createSequentialGroup()
+                .addGroup(panelentradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(earchivo)
+                    .addComponent(etexto)
+                    .addComponent(ehexadecimal))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelentradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonarchivo)
+                    .addComponent(nombrearchivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        panelizquierdoS.add(panelentrada, java.awt.BorderLayout.WEST);
+
+        panelsalida.setBorder(javax.swing.BorderFactory.createTitledBorder("Salida"));
+        panelsalida.setMaximumSize(new java.awt.Dimension(378, 180));
+        panelsalida.setMinimumSize(new java.awt.Dimension(378, 162));
+        panelsalida.setPreferredSize(new java.awt.Dimension(378, 162));
+        panelsalida.setSize(new java.awt.Dimension(378, 162));
+
+        salidahash.setEditable(false);
+        salidahash.setToolTipText("Número hash calculado a partir de la información disponible en la entrada.");
+
+        botonprocesar.setText("Procesar");
+        botonprocesar.setToolTipText("Calcular el hash con los valores anteriormente introducidos.");
+        botonprocesar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonprocesarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelsalidaLayout = new javax.swing.GroupLayout(panelsalida);
+        panelsalida.setLayout(panelsalidaLayout);
+        panelsalidaLayout.setHorizontalGroup(
+            panelsalidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelsalidaLayout.createSequentialGroup()
+                .addGroup(panelsalidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(salidahash, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelsalidaLayout.createSequentialGroup()
+                        .addComponent(botonprocesar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tiempo, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)))
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+        panelsalidaLayout.setVerticalGroup(
+            panelsalidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelsalidaLayout.createSequentialGroup()
+                .addGroup(panelsalidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonprocesar)
+                    .addComponent(tiempo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(salidahash, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(77, Short.MAX_VALUE))
+        );
+
+        panelizquierdoS.add(panelsalida, java.awt.BorderLayout.SOUTH);
+
+        panelSeguimiento.add(panelizquierdoS, java.awt.BorderLayout.WEST);
+
+        panelderechoS.setPreferredSize(new java.awt.Dimension(619, 540));
+        panelderechoS.setSize(new java.awt.Dimension(619, 540));
+        panelderechoS.setLayout(new java.awt.BorderLayout());
+
+        scrollpanelSeguimiento.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollpanelSeguimiento.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollpanelSeguimiento.setMaximumSize(new java.awt.Dimension(700, 520));
+        scrollpanelSeguimiento.setPreferredSize(new java.awt.Dimension(619, 520));
+        scrollpanelSeguimiento.setSize(new java.awt.Dimension(619, 520));
+
+        informeseguimiento.setEditable(false);
+        informeseguimiento.setFont(new java.awt.Font("Courier", 0, 14)); // NOI18N
+        informeseguimiento.setToolTipText("Panel donde aparecerá el informe.");
+        scrollpanelSeguimiento.setViewportView(informeseguimiento);
+
+        panelderechoS.add(scrollpanelSeguimiento, java.awt.BorderLayout.NORTH);
+
+        jPanel2.setMinimumSize(new java.awt.Dimension(619, 40));
+        jPanel2.setSize(new java.awt.Dimension(619, 40));
+
+        guardarS.setText("Guardar");
+        guardarS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarSActionPerformed(evt);
+            }
+        });
+
+        imprimirS.setText("Imprimir");
+        imprimirS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imprimirSActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE))
+                .addGap(87, 87, 87)
+                .addComponent(guardarS)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 212, Short.MAX_VALUE)
+                .addComponent(imprimirS)
+                .addGap(129, 129, 129))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(guardarS)
+                    .addComponent(imprimirS))
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Ataques a las funciones hash", jPanel2);
+        panelderechoS.add(jPanel2, java.awt.BorderLayout.SOUTH);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        panelSeguimiento.add(panelderechoS, java.awt.BorderLayout.EAST);
+
+        jTabbedPane1.addTab("Calculo y seguimiento de las funciones Hash", panelSeguimiento);
+
+        add(jTabbedPane1, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonarchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonarchivoActionPerformed
@@ -795,7 +942,7 @@ public class CriptoLabHashGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_botonprocesarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        entradaerronea.dispose();
+        acercade.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void botonaplicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonaplicarActionPerformed
@@ -842,8 +989,33 @@ public class CriptoLabHashGUI extends javax.swing.JPanel {
         informecolisiones.setText(apiservidor.getInformeColisiones());
     }//GEN-LAST:event_botoninformeActionPerformed
 
+    private void guardarSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarSActionPerformed
+        this.guardarenArchivo(informeseguimiento);
+    }//GEN-LAST:event_guardarSActionPerformed
+
+    private void guardarAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarAActionPerformed
+        this.guardarenArchivo(informecolisiones);
+    }//GEN-LAST:event_guardarAActionPerformed
+
+    private void imprimirAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirAActionPerformed
+        try {
+            informecolisiones.print();
+        } catch (PrinterException ex) {
+            JOptionPane.showMessageDialog(null, "Error al imprimir: " + ex.getMessage(), "Imprimiendo informe", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_imprimirAActionPerformed
+
+    private void imprimirSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirSActionPerformed
+        try {
+            informeseguimiento.print();
+        } catch (PrinterException ex) {
+            JOptionPane.showMessageDialog(null, "Error al imprimir: " + ex.getMessage(), "Imprimiendo informe", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_imprimirSActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog acercade;
     private javax.swing.JComboBox<String> algoritmoa;
     private javax.swing.JComboBox<String> algoritmoi;
     private javax.swing.JButton botonapagar;
@@ -856,9 +1028,12 @@ public class CriptoLabHashGUI extends javax.swing.JPanel {
     private javax.swing.JButton botonreset;
     private javax.swing.JRadioButton earchivo;
     private javax.swing.JRadioButton ehexadecimal;
-    private javax.swing.JDialog entradaerronea;
     private javax.swing.JTextArea entradateclado;
     private javax.swing.JRadioButton etexto;
+    private javax.swing.JButton guardarA;
+    private javax.swing.JButton guardarS;
+    private javax.swing.JButton imprimirA;
+    private javax.swing.JButton imprimirS;
     private javax.swing.JLabel infoconexion;
     private javax.swing.JRadioButton informebloque;
     private javax.swing.JTextArea informecolisiones;
@@ -878,15 +1053,7 @@ public class CriptoLabHashGUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.ButtonGroup modoinforme;
@@ -896,7 +1063,21 @@ public class CriptoLabHashGUI extends javax.swing.JPanel {
     private javax.swing.JTextField nhashseg;
     private javax.swing.JTextField nombrearchivo;
     private javax.swing.JTextField npseudocolisiones;
+    private javax.swing.JPanel panelAtaque;
+    private javax.swing.JPanel panelIzquierdoA;
+    private javax.swing.JPanel panelSeguimiento;
+    private javax.swing.JPanel panelconfiguracion;
+    private javax.swing.JPanel panelcontrol;
+    private javax.swing.JPanel panelderechoA;
+    private javax.swing.JPanel panelderechoS;
+    private javax.swing.JPanel panelentrada;
+    private javax.swing.JPanel panelizquierdoS;
+    private javax.swing.JPanel panelmonitorizacion;
+    private javax.swing.JPanel panelopciones;
+    private javax.swing.JPanel panelsalida;
     private javax.swing.JTextField salidahash;
+    private javax.swing.JScrollPane scrollpanelAtaque;
+    private javax.swing.JScrollPane scrollpanelSeguimiento;
     private javax.swing.JSpinner sizehash;
     private javax.swing.JSpinner sizemsg;
     private javax.swing.JLabel textoinformativo;

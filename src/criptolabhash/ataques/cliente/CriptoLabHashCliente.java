@@ -95,8 +95,8 @@ public class CriptoLabHashCliente {
 
         ayuda.append("\nUSO\n"
                 + "Para ejecutar el módulo cliente en la misma máquina que el servidor y\n"
-                + "que está escuchando por el puerto 11000.\n\n"
-                + "java -jar CriptoLabHash 127.0.0.1 11000\n");
+                + "que está escuchando por el puerto 10001.\n\n"
+                + "java -jar CriptoLabHash.jar 127.0.0.1 10001\n");
 
         System.out.print(ayuda.toString());
         System.exit(1);
