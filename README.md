@@ -68,11 +68,11 @@ puede arrancar indicándole también la ip y puerto sugerido.
 
 ## Construido con
 
-* [Netbeans] (https://netbeans.org) IDE de programación.
+* [Netbeans](https://netbeans.org) IDE de programación.
 
 # Versioneado
 
-Se usa [GitHub] (https://github.com) para el control de versiones.
+Se usa [GitHub](https://github.com) para el control de versiones.
 
 ## Autor
 
@@ -81,7 +81,7 @@ Se usa [GitHub] (https://github.com) para el control de versiones.
 ## License
 
 Este proyecto está licenciado bajo la licencia GNU GENERAL PUBLIC LICENSE 
-Versión 3. Consulte el archivo [LICENSE] (LICENSE) para obtener más detalles.
+Versión 3. Consulte el archivo [LICENSE](LICENSE) para obtener más detalles.
 
 ## Agradecimientos
 
