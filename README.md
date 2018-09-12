@@ -78,7 +78,7 @@ Se usa [GitHub](https://github.com) para el control de versiones.
 
 * **José Ramón Cuevas**
 
-## License
+## Licencia
 
 Este proyecto está licenciado bajo la licencia GNU GENERAL PUBLIC LICENSE 
 Versión 3. Consulte el archivo [LICENSE](LICENSE) para obtener más detalles.
