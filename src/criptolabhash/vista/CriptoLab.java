@@ -19,6 +19,7 @@ package criptolabhash.vista;
 import criptolabhash.control.APIServerHash;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 
 /**
  *
@@ -45,6 +46,7 @@ public class CriptoLab extends javax.swing.JFrame {
         this.setLayout(new FlowLayout());
         criptohash = new CriptoLabHashGUI(apiServidor);
         this.add(criptohash, BorderLayout.CENTER); //introduce el JPanel
+        setIconImage(Toolkit.getDefaultToolkit().createImage(getClass().getResource("/criptolabhash/vista/icon.png")));
         this.pack();
         this.setLocationRelativeTo(null); // centrado en pantalla
     }

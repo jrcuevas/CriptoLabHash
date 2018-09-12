@@ -172,6 +172,10 @@ public class CriptoLabHashGUI extends javax.swing.JPanel {
         acercade = new javax.swing.JDialog();
         jButton1 = new javax.swing.JButton();
         textoinformativo = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         panelAtaque = new javax.swing.JPanel();
         panelIzquierdoA = new javax.swing.JPanel();
@@ -229,6 +233,7 @@ public class CriptoLabHashGUI extends javax.swing.JPanel {
         salidahash = new javax.swing.JTextField();
         botonprocesar = new javax.swing.JButton();
         tiempo = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         panelderechoS = new javax.swing.JPanel();
         scrollpanelSeguimiento = new javax.swing.JScrollPane();
         informeseguimiento = new javax.swing.JTextArea();
@@ -237,8 +242,12 @@ public class CriptoLabHashGUI extends javax.swing.JPanel {
         imprimirS = new javax.swing.JButton();
 
         acercade.setTitle("Acerca de");
-        acercade.setUndecorated(true);
+        acercade.setMinimumSize(new java.awt.Dimension(550, 304));
+        acercade.setModal(true);
+        acercade.setPreferredSize(new java.awt.Dimension(570, 320));
         acercade.setResizable(false);
+        acercade.setSize(new java.awt.Dimension(570, 320));
+        acercade.setLocationRelativeTo(null);
 
         jButton1.setText("Aceptar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -248,23 +257,62 @@ public class CriptoLabHashGUI extends javax.swing.JPanel {
         });
 
         textoinformativo.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        textoinformativo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoinformativo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         textoinformativo.setText("Master Universitario en Seguridad Informática");
+
+        jLabel12.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("CriptoLabHash");
+
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/criptolabhash/vista/COIIE copia.PNG"))); // NOI18N
+
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/criptolabhash/vista/logo_UNIR copia.png"))); // NOI18N
+
+        jLabel15.setText("<html>Esta aplicación versa sobre las funciones hash, y ataque distribuido mediante la paradoja del cumpleaños. \nPertenece al Trabajo Fin de Master cursado en la UNIR, por el alumno <b>D. José Ramón Cuevas Diez</b>, y siendo su tutor el profesor \n<b>D. José Luis Lucas Simarro</b>.</html>");
 
         javax.swing.GroupLayout acercadeLayout = new javax.swing.GroupLayout(acercade.getContentPane());
         acercade.getContentPane().setLayout(acercadeLayout);
         acercadeLayout.setHorizontalGroup(
             acercadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(textoinformativo, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(acercadeLayout.createSequentialGroup()
-                .addGap(173, 173, 173)
-                .addComponent(jButton1))
+                .addGroup(acercadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(acercadeLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(acercadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, acercadeLayout.createSequentialGroup()
+                                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(acercadeLayout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addGroup(acercadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(acercadeLayout.createSequentialGroup()
+                                        .addGap(82, 82, 82)
+                                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(acercadeLayout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(textoinformativo))))))
+                    .addGroup(acercadeLayout.createSequentialGroup()
+                        .addGap(229, 229, 229)
+                        .addComponent(jButton1)))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         acercadeLayout.setVerticalGroup(
             acercadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(acercadeLayout.createSequentialGroup()
-                .addComponent(textoinformativo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 169, Short.MAX_VALUE)
+                .addContainerGap()
+                .addGroup(acercadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(acercadeLayout.createSequentialGroup()
+                        .addGroup(acercadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel14)
+                            .addGroup(acercadeLayout.createSequentialGroup()
+                                .addComponent(textoinformativo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel12)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel13))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(24, 24, 24))
         );
@@ -806,28 +854,53 @@ public class CriptoLabHashGUI extends javax.swing.JPanel {
             }
         });
 
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/criptolabhash/vista/CriptoLabHash.png"))); // NOI18N
+        jLabel11.setText("jLabel11");
+        jLabel11.setToolTipText("Pincha aquí, para saber acerca de.");
+        jLabel11.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jLabel11.setMaximumSize(new java.awt.Dimension(60, 60));
+        jLabel11.setMinimumSize(new java.awt.Dimension(60, 60));
+        jLabel11.setPreferredSize(new java.awt.Dimension(60, 60));
+        jLabel11.setSize(new java.awt.Dimension(60, 60));
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel11MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelsalidaLayout = new javax.swing.GroupLayout(panelsalida);
         panelsalida.setLayout(panelsalidaLayout);
         panelsalidaLayout.setHorizontalGroup(
             panelsalidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelsalidaLayout.createSequentialGroup()
-                .addGroup(panelsalidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(salidahash, javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelsalidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(salidahash)
                     .addGroup(panelsalidaLayout.createSequentialGroup()
-                        .addComponent(botonprocesar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tiempo, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)))
-                .addContainerGap(12, Short.MAX_VALUE))
+                        .addGroup(panelsalidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelsalidaLayout.createSequentialGroup()
+                                .addComponent(botonprocesar)
+                                .addGap(0, 166, Short.MAX_VALUE))
+                            .addGroup(panelsalidaLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(tiempo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19)))
+                .addContainerGap())
         );
         panelsalidaLayout.setVerticalGroup(
             panelsalidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelsalidaLayout.createSequentialGroup()
-                .addGroup(panelsalidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonprocesar)
-                    .addComponent(tiempo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
+                .addGroup(panelsalidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelsalidaLayout.createSequentialGroup()
+                        .addComponent(botonprocesar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tiempo))
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addComponent(salidahash, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         panelizquierdoS.add(panelsalida, java.awt.BorderLayout.SOUTH);
@@ -894,6 +967,8 @@ public class CriptoLabHashGUI extends javax.swing.JPanel {
         panelSeguimiento.add(panelderechoS, java.awt.BorderLayout.EAST);
 
         jTabbedPane1.addTab("Calculo y seguimiento de las funciones Hash", panelSeguimiento);
+
+        jTabbedPane1.setSelectedComponent(panelSeguimiento);
 
         add(jTabbedPane1, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
@@ -1013,6 +1088,10 @@ public class CriptoLabHashGUI extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_imprimirSActionPerformed
 
+    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+        acercade.setVisible(true);
+    }//GEN-LAST:event_jLabel11MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog acercade;
@@ -1043,6 +1122,11 @@ public class CriptoLabHashGUI extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
