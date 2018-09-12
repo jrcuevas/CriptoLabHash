@@ -50,18 +50,18 @@ click sobre el archivo "CriptoLabHashServidor.jar". En caso de que no se ejecute
  automáticamente, será necesario arrancarlo desde un consola, de la siguiente 
 forma:
 
-...
+```
 java -jar CriptoLabHashServidor.jar
-...
+```
 
 Para la experimentación con la búsqueda de colisiones, se debe arrancar el o los 
 módulos cliente desde consola y despues de haber arrancado el servidor. Por 
 ejemplo si el servidor esta escuchando en la dirección 192.168.0.14 y puerto 
 10001, deberemos arrancar los clientes de la siguiente forma:
 
-...
+```
 java -jar CriptoLabHashCliente.jar 192.168.0.14 10001
-...
+```
 
 En caso de que tuvieramos algún conflicto con el puerto del servidor, este se 
 puede arrancar indicándole también la ip y puerto sugerido.
@@ -76,7 +76,7 @@ Se usa [GitHub] (https://github.com) para el control de versiones.
 
 ## Autor
 
-* ** José Ramón Cuevas **
+* **José Ramón Cuevas**
 
 ## License
 
@@ -86,8 +86,8 @@ Versión 3. Consulte el archivo [LICENSE] (LICENSE) para obtener más detalles.
 ## Agradecimientos
 
 * Esta herramienta se ha desarrollado bajo el proyecto de TFM perteneciente al 
-** Master Universitario en Seguridad Informática ** cursado durante el año 2018 
-en la ** Universidad Internacional de la Rioja **, por el alumno ** D. José Ramón 
-Cuevas ** y teniendo como director al profesor ** D. José Luis Lucas Simarro **.
+**Master Universitario en Seguridad Informática** cursado durante el año 2018 
+en la **Universidad Internacional de la Rioja**, por el alumno **D. José Ramón 
+Cuevas** y teniendo como director al profesor **D. José Luis Lucas Simarro**.
 * Este proyecto esta inspirado en la herramienta CriptoRES desarrollada por el 
-alumno D. José Azaña Alonso, siendo su tutor el profesor D. Jorge Ramió Aguirre.
+alumno *D. José Azaña Alonso*, siendo su tutor el profesor *D. Jorge Ramió Aguirre*.
