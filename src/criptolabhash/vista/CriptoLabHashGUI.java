@@ -268,7 +268,7 @@ public class CriptoLabHashGUI extends javax.swing.JPanel {
 
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/criptolabhash/vista/logo_UNIR copia.png"))); // NOI18N
 
-        jLabel15.setText("<html>Esta aplicación versa sobre las funciones hash, y ataque distribuido mediante la paradoja del cumpleaños. \nPertenece al Trabajo Fin de Master cursado en la UNIR, por el alumno <b>D. José Ramón Cuevas Diez</b>, y siendo su tutor el profesor \n<b>D. José Luis Lucas Simarro</b>.</html>");
+        jLabel15.setText("<html>Esta aplicación versa sobre las funciones hash, y ataque distribuido mediante la paradoja del cumpleaños. \nPertenece al Trabajo Fin de Master cursado durante el año 2018 en la UNIR, por el alumno <b>D. José Ramón Cuevas Diez</b>, y siendo su tutor el profesor \n<b>D. José Luis Lucas Simarro</b>.</html>");
 
         javax.swing.GroupLayout acercadeLayout = new javax.swing.GroupLayout(acercade.getContentPane());
         acercade.getContentPane().setLayout(acercadeLayout);

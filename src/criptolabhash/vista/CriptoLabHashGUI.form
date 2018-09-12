@@ -131,7 +131,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel15">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&lt;html&gt;Esta aplicaci&#xf3;n versa sobre las funciones hash, y ataque distribuido mediante la paradoja del cumplea&#xf1;os. &#xa;Pertenece al Trabajo Fin de Master cursado en la UNIR, por el alumno &lt;b&gt;D. Jos&#xe9; Ram&#xf3;n Cuevas Diez&lt;/b&gt;, y siendo su tutor el profesor &#xa;&lt;b&gt;D. Jos&#xe9; Luis Lucas Simarro&lt;/b&gt;.&lt;/html&gt;"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;Esta aplicaci&#xf3;n versa sobre las funciones hash, y ataque distribuido mediante la paradoja del cumplea&#xf1;os. &#xa;Pertenece al Trabajo Fin de Master cursado durante el a&#xf1;o 2018 en la UNIR, por el alumno &lt;b&gt;D. Jos&#xe9; Ram&#xf3;n Cuevas Diez&lt;/b&gt;, y siendo su tutor el profesor &#xa;&lt;b&gt;D. Jos&#xe9; Luis Lucas Simarro&lt;/b&gt;.&lt;/html&gt;"/>
           </Properties>
         </Component>
       </SubComponents>

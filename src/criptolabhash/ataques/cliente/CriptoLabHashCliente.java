@@ -60,7 +60,7 @@ public class CriptoLabHashCliente {
             dbcliente = new DataBaseHashCliente(host, port);
             dbcliente.start();
             apicliente = dbcliente;
-            monitorizaEstado(apicliente, 350);
+            monitorizaEstado(apicliente, 0);
         } catch (IOException ex) {
             System.out.println("Error al conectar con el servidor: " + ex.getMessage());
         } catch (InterruptedException ex) {
@@ -91,12 +91,12 @@ public class CriptoLabHashCliente {
                 + "que puede ser ejecutado en cualquier máquina que disponga de JVM 1.8 o \n"
                 + "superior. Para su ejecución se necesita tener arrancada la aplicación \n"
                 + "de servidor CriptoLabHash en un equipo accesible desde este, y saber \n"
-                + "cual es su ip y puerto.\n");
+                + "cual es su ip y puerto de escucha.\n");
 
         ayuda.append("\nUSO\n"
                 + "Para ejecutar el módulo cliente en la misma máquina que el servidor y\n"
                 + "que está escuchando por el puerto 10001.\n\n"
-                + "java -jar CriptoLabHash.jar 127.0.0.1 10001\n");
+                + "java -jar CriptoLabHash.jar 127.0.0.1 10001\n\n");
 
         System.out.print(ayuda.toString());
         System.exit(1);
@@ -107,13 +107,14 @@ public class CriptoLabHashCliente {
      *
      * @param cliente Cliente.
      * @param segundos tiempo de monitorización.
-     * @throws InterruptedException Si se ha recibido una orden de parar la ejecución.
+     * @throws InterruptedException Si se ha recibido una orden de parar la
+     * ejecución.
      */
     public static void monitorizaEstado(APIClienteHash cliente, int segundos) throws InterruptedException {
         int timeout = segundos;
         long ant = 0;
         DataBaseHashCliente db = (DataBaseHashCliente) cliente;
-        while (timeout > 0) {
+        while (timeout > 0 || segundos == 0) {
             Thread.sleep(1000);
             if (!db.isAlive()) {
                 break;
@@ -123,7 +124,9 @@ public class CriptoLabHashCliente {
             hs = (hs < 0) ? 0 : hs;
             System.out.println("Nº Hashes: " + cliente.numeroHashes() + "  hashes/s " + hs + "  Nº colisiones: " + cliente.numeroColisiones() + "  Nº pseudocolisiones: " + cliente.numeroPseudocolisiones());
             ant = act;
-            timeout--;
+            if (segundos != 0) {
+                timeout--;
+            }
         }
     }
 }

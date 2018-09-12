@@ -59,7 +59,7 @@ public class CriptoLabHash {
             ServidorCumpleanos servidor = new ServidorCumpleanos(port, host);
             servidor.start();
             CriptoLab.conectaAPI(servidor.getAPIServer());
-            CriptoLab.main(null); // Arranca la interface gráfica
+            CriptoLab.arrancaGUI();
         } catch (IOException ex) {
             System.out.println("Error al conectar con el cliente: " + ex.getMessage());
         }
@@ -96,8 +96,8 @@ public class CriptoLabHash {
                 + "puede facilitar la ip y el puerto donde se quiera que escuche.\n\n"
                 + "Como ejemplos:\n"
                 + "java -jar CriptoLabHash.jar 127.0.0.1 10001\n"
-                + "java -jar CriptoLabHash.jar 10001"
-                + "java -jar CriptoLabHash.jar");
+                + "java -jar CriptoLabHash.jar 10001\n"
+                + "java -jar CriptoLabHash.jar\n\n");
 
         System.out.print(ayuda.toString());
         System.exit(1);
