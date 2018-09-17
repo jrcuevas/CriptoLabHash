@@ -110,7 +110,8 @@ public class DataBaseHashCliente extends Thread implements FuncionesCliente, API
      */
     private void reset() {
         if (!(this.mensajes != null && this.mensajes.isEmpty())) {
-            this.mensajes = Collections.synchronizedMap(new HashMap(MAXIMUM_CAPACITY / 2));
+            //this.mensajes = Collections.synchronizedMap(new HashMap(MAXIMUM_CAPACITY / 2));
+            this.mensajes = Collections.synchronizedMap(new HashMap());
         }
         this.colisiones = new Colisiones();
         this.shutdown = false;

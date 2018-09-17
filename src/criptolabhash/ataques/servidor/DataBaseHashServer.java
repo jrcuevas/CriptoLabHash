@@ -106,7 +106,8 @@ public class DataBaseHashServer implements APIServerHash {
      */
     private void resetDB() {
         this.clientesactivos = false;
-        this.dbhash = Collections.synchronizedMap(new HashMap(MAXIMUM_CAPACITY / 2));
+        //this.dbhash = Collections.synchronizedMap(new HashMap(MAXIMUM_CAPACITY / 2));
+        this.dbhash = Collections.synchronizedMap(new HashMap());
         this.colisiones = new Colisiones();
         this.nhashes = 0L;
     }
